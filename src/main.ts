@@ -21,7 +21,7 @@ import {
   GroupNodeStyle,
   FreeNodeLabelModel,
   Point,
-  InteriorLabelModel, InteriorLabelModelPosition
+  InteriorLabelModel, InteriorLabelModelPosition, IEdge, Arrow, PolylineEdgeStyle
 } from 'yfiles';
 import { enableFolding } from './lib/FoldingSupport';
 import './lib/yFilesLicense';
@@ -50,10 +50,67 @@ async function initializeGraphComponent() {
   mode.navigationInputMode.allowEnterGroup = true;
   mode.navigationInputMode.allowExitGroup = true;
   mode.navigationInputMode.allowExpandGroup = true;
+  mode.addItemClickedListener((sender, args) => {
+    if (args.item instanceof IEdge) {
+      // Highlight the clicked edge
+      highlightEdge(graphComponent, args.item);
+
+      // Show details in the sidebar
+      showEdgeDetails(args.item);
+    }
+  });
+
   graphComponent.inputMode = mode;
+
   graphComponent.graph = enableFolding(new DefaultGraph());
   return graphComponent;
 }
+
+let lastHighlightedEdge = null; // To keep track of the last highlighted edge
+
+function highlightEdge(graphComponent, edge) {
+  // Reset the last highlighted edge if it exists
+  if (lastHighlightedEdge) {
+    graphComponent.graph.setStyle(lastHighlightedEdge, graphComponent.graph.edgeDefaults.style);
+  }
+
+  // Set the new style for the clicked edge
+  const highlightStyle = new PolylineEdgeStyle({
+    stroke: '3px dashed blue', // Example style, customize as needed
+    targetArrow: new Arrow({ fill: 'blue', stroke: 'blue' }) // Optional: if you want to style the arrow as well
+  });
+
+  graphComponent.graph.setStyle(edge, highlightStyle);
+
+  // Update the last highlighted edge
+  lastHighlightedEdge = edge;
+}
+
+
+
+function showEdgeDetails(edge) {
+  const offcanvasBody = document.getElementById('sidebar');
+  const sourceNode = edge.sourceNode;
+  const targetNode = edge.targetNode;
+
+  // Update offcanvas content
+  offcanvasBody.innerHTML = `
+    <p><strong>From:</strong> ${sourceNode.labels.first().text}</p>
+    <p><strong>To:</strong> ${targetNode.labels.first().text}</p>
+  `;
+
+  // Show the offcanvas
+  const offcanvasElement = document.getElementById('offcanvasScrolling');
+  var bsOffcanvas = new bootstrap.Offcanvas(offcanvasElement);
+  bsOffcanvas.show();
+}
+
+
+function hideSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  sidebar.style.display = 'none';
+}
+
 
 function getColorForNode(type) {
   // Example implementation - replace with your actual logic
@@ -109,6 +166,11 @@ function createDomainNode(graph, domainName) {
     // For example, use a simple rectangle as the group node indicator
     stroke: colors.strokeColor,
     contentAreaFill: colors.fillColor,
+    folderIcon: 'chevron-up',
+    groupIcon: 'chevron-down',
+    iconPosition: 'trailing',
+    tabInset: 4,
+    tabBackgroundFill: colors.fillColor, // Fix: Use a single color instead of LinearGradient
 
     // ... other properties according to your design requirements
   });

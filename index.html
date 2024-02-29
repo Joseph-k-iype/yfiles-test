@@ -3,40 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="/favicon.svg"><!-- ////////////////////////////////////////////////////////////////////////
-     // @license
-     // This app exhibits yFiles for HTML functionalities.
-     // Copyright (c) 2024 by yWorks GmbH, Vor dem Kreuzberg 28,
-     // 72070 Tuebingen, Germany. All rights reserved.
-     // 
-     // yFiles demo files exhibit yFiles for HTML functionalities.
-     // Any redistribution of demo files in source code or binary form, with
-     // or without modification, is not permitted.
-     // 
-     // Owners of a valid software license for a yFiles for HTML
-     // version are allowed to use the app source code as basis for their
-     // own yFiles for HTML powered applications. Use of such programs is
-     // governed by the rights and conditions as set out in the yFiles for HTML
-     // license agreement. If in doubt, please mail to contact@yworks.com.
-     // 
-     // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
-     // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-     // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
-     // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-     // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
-     // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-     // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-     // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-     // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-     // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-     // 
-     ////////////////////////////////////////////////////////////////////////-->
-
+    <link rel="icon" href="/favicon.svg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 
   <title>TestProject</title>
   </head>
   <body>
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Offcanvas with body scrolling</h5>
+        <button id = "close-sidebar" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body" id="sidebar">
+      </div>
+    </div>
+<!-- <div id="sidebar" style="position:fixed; right:0; top:0; width:200px; height:100%; background:#f0f0f0; display:none;">
+  <button id="close-sidebar" style="float:right;">&times;</button>
+</div> -->
+
+  
     <div id="app">
       <div class="header">
         <div class="title">TestProject</div>
